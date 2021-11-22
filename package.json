@@ -1,0 +1,39 @@
+{
+  "name": "understanding-nodejs-jwt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js",
+    "lint": "eslint -- ext .js -f ./node_modules/eslint-friendly-formatter .fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chanelym/understanding-NodeJS-JWT.git"
+  },
+  "keywords": [],
+  "author": "Chanely marques",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chanelym/understanding-NodeJS-JWT/issues"
+  },
+  "homepage": "https://github.com/chanelym/understanding-NodeJS-JWT#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "eslint-cli": "^1.1.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "nodemon": "^2.0.15"
+  }
+}
