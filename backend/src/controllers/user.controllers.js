@@ -1,7 +1,7 @@
 /*
 *
 * File: src/controllers/user.controller.js
-* Description: Here is where we define User's CRUD
+* Description: Here is where we define User's REST
 * Creation: 11/22/2021
 * Author: Chanely marques
 *
@@ -43,7 +43,7 @@ exports.loginUser = async (req, res) => {
     const token = await user.generateAuthToken();
     return res
       .status(201)
-      .json({ message: 'User Successfully Created!', user, token });
+      .json({ message: 'Login Successful!', user, token });
   } catch (err) {
     return res.status(400).json({ err });
   }

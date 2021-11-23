@@ -1,7 +1,7 @@
 /*
 *
 * File: src/routes/index.js
-* Description: Executes default api's route
+* Description: This file lists all my API routes
 * Creation: 11/22/2021
 * Author: Chanely marques
 *
