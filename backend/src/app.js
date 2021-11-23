@@ -18,10 +18,9 @@ const database = require('./config/db.config');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(database.localDatabaseUrl, {
+mongoose.connect(database.local.localUrlDatabase, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 }).then(() => {
   console.log('Database Successfully Connected!');
 }, (err) => {
@@ -30,6 +29,7 @@ mongoose.connect(database.localDatabaseUrl, {
 });
 
 const index = require('./routes/index');
+const userRoutes = require('./routes/user.routes');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,5 +38,6 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(index);
+app.use('/api/v1', userRoutes);
 
 module.exports = app;
