@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const AdeleSchema = new Schema({
+const adeleSchema = new Schema({
   albumName: {
     type: String,
     required: true,
@@ -38,4 +38,6 @@ const AdeleSchema = new Schema({
   }],
 });
 
-export default mongoose.model('Adele', AdeleSchema);
+const Adele = mongoose.model('Adele', adeleSchema);
+
+module.exports = Adele;
