@@ -9,73 +9,54 @@
 
 const Madonna = require('../models/madonna.model');
 const Award = require('../models/awards.model');
+const validations = require('../middlewares/validations');
 
-exports.registerNewAlbum = (req, res) => {
-  const newAlbum = new Madonna();
+exports.registerNewAlbum = async (req, res) => {
+  validations.validateInputAlbum(req, res);
 
-  newAlbum.albumName = req.body.albumName;
-  newAlbum.albumGenre = req.body.albumGenre;
-  newAlbum.albumYear = req.body.albumYear;
-  newAlbum.albumCover = req.body.albumCover;
-  newAlbum.albumProducer = req.body.albumProducer;
-
-  newAlbum.save((err) => {
-    if (err) {
-      res.status(400).send('err tryng saving Album Info');
-    }
-
-    res.status(200).send('Album successfully saved');
+  await Madonna.create(req.body).then(() => {
+    res.status(201).json({ message: 'Album Successfully Created' });
+  }).catch((err) => {
+    res.status(400).json({ message: 'Oops! Something went Wrong' });
+    console.error(err);
   });
 };
 
-exports.updateAlbum = (req, res) => {
-  Madonna.findById(req.params.id, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find this Album');
-    }
+exports.updateAlbum = async (req, res) => {
+  validations.validateURLID(req, res);
+  validations.validateInputAlbum(req, res);
 
-    album.albumName = req.body.albumName;
-    album.albumGenre = req.body.albumGenre;
-    album.albumYear = req.body.albumYear;
-    album.albumCover = req.body.albumCover;
-    album.albumProducer = req.body.albumProducer;
-
-    album.save((err) => {
-      if (err) {
-        res.status(400).send('err try to save this Album');
-      }
-
-      res.status(200).json({ message: 'Album succefully updated.' });
-    });
+  await Madonna.findByIdAndUpdate(req.params.id, req.body).then(() => {
+    res.status(201).json({ message: 'Album Successfully Updated' });
+  }).catch((err) => {
+    console.error(err);
+    res.status(400).json({ message: 'Oops! Something went wrong' });
   });
 };
 
-exports.deleteAlbum = (req, res) => {
-  Madonna.deleteOne({ _id: req.params.id }, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to remove this Album');
-    }
+exports.deleteAlbum = async (req, res) => {
+  validations.validateURLID(req, res);
 
-    res.status(200).json({ message: 'Album successfully removed' });
+  await Madonna.findByIdAndDelete(req.params.id).then(() => {
+    res.status(201).json({ message: 'Album Successfully Removed!' });
+  }).catch((err) => {
+    console.error(err);
+    res.status(400).json({ message: 'Oops! Something went wrong' });
   });
 };
 
-exports.getAll = (req, res) => {
-  Madonna.find({}, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find Madonna Albumns');
-    }
-
-    res.status(200).json(album);
+exports.getAll = async (req, res) => {
+  await Madonna.find({}).then((madonna) => {
+    res.status(200).json(madonna);
   });
 };
 
-exports.getAlbumByID = (req, res) => {
-  Madonna.findById(req.params.id, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find this Album');
+exports.getAlbumByID = async (req, res) => {
+  await Madonna.findOne({ _id: req.params.id }).then((madonna) => {
+    if (madonna == null) {
+      res.status(404).json({ message: 'Album Not Found' });
+    } else {
+      res.status(200).json(madonna);
     }
-
-    res.status(200).json(album);
   });
 };

@@ -9,9 +9,10 @@
 
 const Adele = require('../models/adele.model');
 const Award = require('../models/awards.model');
+const validations = require('../middlewares/validations');
 
 exports.registerNewAlbum = async (req, res) => {
-  // Adele.validateInputCity(req, res);
+  validations.validateInputCity(req, res);
 
   await Adele.create(req.body).then(() => {
     res.status(201).json({ message: 'Album Successfully Created' });
@@ -22,8 +23,8 @@ exports.registerNewAlbum = async (req, res) => {
 };
 
 exports.updateAlbum = async (req, res) => {
-  // validations.validateURLID(req, res);
-  // validations.validateInputCity(req, res);
+  validations.validateURLID(req, res);
+  validations.validateInputCity(req, res);
 
   await Adele.findByIdAndUpdate(req.params.id, req.body).then(() => {
     res.status(201).json({ message: 'Album Successfully Updated' });
@@ -34,7 +35,8 @@ exports.updateAlbum = async (req, res) => {
 };
 
 exports.deleteAlbum = async (req, res) => {
-  // Adele.validateURLID(req, res);
+  validations.validateURLID(req, res);
+
   await Adele.findByIdAndDelete(req.params.id).then(() => {
     res.status(201).json({ message: 'Album Successfully Removed!' });
   }).catch((err) => {
