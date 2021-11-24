@@ -17,15 +17,15 @@ const madonnaController = require('../controllers/madonna.controllers');
 router.post('/add', auth, madonnaController.registerNewAlbum);
 
 // Edit Album (PUT): http://localhost:3000/api/v1/madonna/update
-router.post('/update', auth, madonnaController.updateAlbum);
+router.post('/update/:id', auth, madonnaController.updateAlbum);
 
 // Delete Album (DELETE): http://localhost:3000/api/v1/madonna/delete
-router.get('/delete', auth, madonnaController.deleteAlbum);
+router.get('/delete/:id', auth, madonnaController.deleteAlbum);
 
 // GET Everything (GET): http://localhost:3000/api/v1/madonna/delete
 router.get('/listall', auth, madonnaController.getAll);
 
 // GET Album by ID (DELETE): http://localhost:3000/api/v1/madonna/delete
-router.get('/listid', auth, madonnaController.getAlbumByID);
+router.get('/listid/:id', auth, madonnaController.getAlbumByID);
 
 module.exports = router;
