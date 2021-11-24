@@ -21,10 +21,10 @@ router.post('/update', adeleController.updateAlbum);
 // Delete Album (DELETE): http://localhost:3000/api/v1/adele/delete
 router.get('/delete', adeleController.deleteAlbum);
 
-// GET Everything (GET): http://localhost:3000/api/v1/adele/delete
+// GET Everything (GET): http://localhost:3000/api/v1/adele/listall
 router.get('/listall', adeleController.getAll);
 
-// GET Album by ID (DELETE): http://localhost:3000/api/v1/adele/delete
+// GET Album by ID (DELETE): http://localhost:3000/api/v1/adele/listid
 router.get('/listid', adeleController.getAlbumByID);
 
 module.exports = router;
