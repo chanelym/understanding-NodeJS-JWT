@@ -16,10 +16,10 @@ const adeleController = require('../controllers/adele.controllers');
 router.post('/add', adeleController.registerNewAlbum);
 
 // Edit Album (PUT): http://localhost:3000/api/v1/adele/update
-router.post('/update/:id', adeleController.updateAlbum);
+router.put('/update/:id', adeleController.updateAlbum);
 
 // Delete Album (DELETE): http://localhost:3000/api/v1/adele/delete
-router.get('/delete/:id', adeleController.deleteAlbum);
+router.delete('/delete/:id', adeleController.deleteAlbum);
 
 // GET Everything (GET): http://localhost:3000/api/v1/adele/listall
 router.get('/listall', adeleController.getAll);
