@@ -10,72 +10,50 @@
 const Adele = require('../models/adele.model');
 const Award = require('../models/awards.model');
 
-exports.registerNewAlbum = (req, res) => {
-  const newAlbum = new Adele();
+exports.registerNewAlbum = async (req, res) => {
+  // Adele.validateInputCity(req, res);
 
-  newAlbum.albumName = req.body.albumName;
-  newAlbum.albumGenre = req.body.albumGenre;
-  newAlbum.albumYear = req.body.albumYear;
-  newAlbum.albumCover = req.body.albumCover;
-  newAlbum.albumProducer = req.body.albumProducer;
-
-  newAlbum.save((err) => {
-    if (err) {
-      res.status(400).send('err tryng saving Album Info');
-    }
-
-    res.status(200).send('Album successfully saved');
+  await Adele.create(req.body).then(() => {
+      res.status(201).json({ message: 'Album Successfully Created' });
+  }).catch((err) => {
+      res.status(400).json({ message: 'Oops! Something went Wrong' });
+      console.error(err);
   });
 };
 
-exports.updateAlbum = (req, res) => {
-  Adele.findById(req.params.id, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find this Album');
-    }
+exports.updateAlbum = async (req,res) => {
+  // validations.validateURLID(req, res);
+  // validations.validateInputCity(req, res);
 
-    album.albumName = req.body.albumName;
-    album.albumGenre = req.body.albumGenre;
-    album.albumYear = req.body.albumYear;
-    album.albumCover = req.body.albumCover;
-    album.albumProducer = req.body.albumProducer;
-
-    album.save((err) => {
-      if (err) {
-        res.status(400).send('err try to save this Album');
-      }
-
-      res.status(200).json({ message: 'Album succefully updated.' });
-    });
+  await Adele.findByIdAndUpdate(req.params.id, req.body).then(() => { 
+      res.status(201).json({ message: 'Album Successfully Updated' });
+  }).catch((err) => {
+      console.error(err);
+      res.status(400).json( {message: 'Oops! Something went wrong'});
   });
 };
 
-exports.deleteAlbum = (req, res) => {
-  Adele.deleteOne({ _id: req.params.id }, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to remove this Album');
-    }
-
-    res.status(200).json({ message: 'Album successfully removed' });
+exports.deleteAlbum = async (req,res) => {
+  // Adele.validateURLID(req, res);
+  
+  await Adele.findByIdAndDelete( req.params.id ).then(() => { 
+      res.status(201).json({ message: 'Album Successfully Removed!' });
+  }).catch((err) => {
+      console.error(err);
+      res.status(400).json({ message: 'Oops! Something went wrong' });
   });
+
+exports.getAll = async (req, res) => {
+  await Adele.find({}).then((adele) => {
+      res.status(200).json(adele);
+  })
 };
 
-exports.getAll = (req, res) => {
-  Adele.find({}, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find Adele Albumns');
-    }
-
-    res.status(200).json(album);
-  });
-};
-
-exports.getAlbumByID = (req, res) => {
-  Adele.findById(req.params.id, (err, album) => {
-    if (err) {
-      res.status(400).send('err try to find this Album');
-    }
-
-    res.status(200).json(album);
-  });
+exports.getAlbumByID = async (req, res) => {
+  await Adele.findOne({ _id: req.params.id }).then((adele) => {
+      if (adele == null) { 
+          res.status(404).json({ message: 'Album Not Found' });
+      } else {
+          res.status(200).json(adele);
+      }})
 };
