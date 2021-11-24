@@ -13,7 +13,7 @@ const Award = require('./awards.model');
 
 const { Schema } = mongoose;
 
-const DiscographySchema = new Schema({
+const madonnaSchema = new Schema({
   albumName: {
     type: String,
     required: true,
@@ -40,4 +40,6 @@ const DiscographySchema = new Schema({
   }],
 });
 
-export default mongoose.model('Discography', DiscographySchema);
+const Madonna = mongoose.model('Madonna', madonnaSchema);
+
+module.exports = Madonna;

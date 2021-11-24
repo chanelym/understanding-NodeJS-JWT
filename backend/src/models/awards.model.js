@@ -13,7 +13,7 @@ const album = require('./madonna.model', './adele.model');
 
 const { Schema } = mongoose;
 
-const AwardSchema = new mongoose.Schema({
+const awardSchema = new mongoose.Schema({
   awardCategory: {
     type: String,
     required: true,
@@ -29,4 +29,6 @@ const AwardSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('Award', AwardSchema);
+const Award = mongoose.model('Award', awardSchema);
+
+module.exports = Award;

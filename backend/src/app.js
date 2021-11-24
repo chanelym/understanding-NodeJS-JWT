@@ -17,6 +17,8 @@ const app = express();
 const mongooseConnection = require('./config/mongooseConnection.config');
 const index = require('./routes/index');
 const userRoutes = require('./routes/user.routes');
+const madonnaRoutes = require('./routes/madonna.routes');
+const adeleRoutes = require('./routes/adele.routes');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -28,5 +30,7 @@ app.set('mongoose connection', mongooseConnection);
 
 app.use(index);
 app.use('/api/v1', userRoutes);
+app.use('/api/v1/madonna', madonnaRoutes);
+app.use('/api/v1/adele', adeleRoutes);
 
 module.exports = app;

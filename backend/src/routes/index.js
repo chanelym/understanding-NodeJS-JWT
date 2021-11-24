@@ -19,4 +19,20 @@ router.get('/api/v1', (req, res) => {
   });
 });
 
+router.get('/api/v1/madonna', (req, res) => {
+  res.status(200).send({
+    success: true,
+    message: 'Welcome to Madonna Discography!',
+    version: '1.0.0',
+  });
+});
+
+router.get('/api/v1/adele', (req, res) => {
+  res.status(200).send({
+    success: true,
+    message: 'Welcome to Adele Discography!',
+    version: '1.0.0',
+  });
+});
+
 module.exports = router;
